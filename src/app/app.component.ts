@@ -43,5 +43,8 @@ export class AppComponent{
     this.endDate.value
     )
     this.service.adddata(data);
+    this.form.reset();
+    this.startDate.reset();
+    this.endDate.reset();
   }
 }
