@@ -1,0 +1,108 @@
+<mat-card>
+  <mat-card-title>Book Flight</mat-card-title>
+  <div [formGroup]="form">
+    <mat-form-field appearance="legacy" id="fullname">
+      <mat-label>Full name</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="fullname">
+      <mat-error *ngIf="form.get('fullname')?.errors?.['required']">กรุณาใส่ชื่อ</mat-error>
+    </mat-form-field>
+    <div id="select">
+      <mat-form-field appearance="fill">
+        <mat-label>From</mat-label>
+        <mat-select formControlName="from">
+          <mat-option value="Thailand">Thailand</mat-option>
+          <mat-option value="England">England</mat-option>
+          <mat-option value="Poland">Poland</mat-option>
+          <mat-option value="Canada">Canada</mat-option>
+          <mat-option value="China">China</mat-option>
+          <mat-option value="France">France</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('from')?.errors?.['required']">กรุณาเลือกสถานที่</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>To</mat-label>
+        <mat-select formControlName="to">
+          <mat-option value="Thailand">Thailand</mat-option>
+          <mat-option value="England">England</mat-option>
+          <mat-option value="Poland">Poland</mat-option>
+          <mat-option value="Canada">Canada</mat-option>
+          <mat-option value="China">China</mat-option>
+          <mat-option value="France">France</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('to')?.errors?.['required']">กรุณาเลือกสถานที่</mat-error>
+      </mat-form-field>
+    </div>
+    <div id="section2">
+      <div>
+        <mat-label>Trip Type</mat-label><br><br>
+        <mat-radio-group aria-label="Select an option" formControlName="type">
+          <mat-radio-button value="One Way" id="val1">One Way</mat-radio-button>
+          <mat-radio-button value="Return">Return</mat-radio-button>
+        </mat-radio-group>
+        <div><mat-error *ngIf="form.get('type')?.errors?.['required']">กรุณาเลือก</mat-error></div>
+      </div>
+      <div id="date">
+        <div>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker1" placeholder="Start Date" [formControl]="startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="End Date"
+            [min]="startDate.value"  [formControl]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div id="input3">
+      <mat-form-field appearance="fill">
+        <mat-label>Adults</mat-label>
+        <input matInput placeholder="10-20" formControlName="adults">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Children</mat-label>
+        <input matInput placeholder="10-20" formControlName="children">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Infants</mat-label>
+        <input matInput placeholder="10-20" formControlName="infants">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="example-button-container">
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="adddata()"  style="background-color: green;margin-top: 20px;">Accept</button>
+  </div>
+</mat-card>
+<table style="margin-top: 25px;">
+  <thead>
+    <tr>
+      <th>Full name</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Trip Type</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th>Adults</th>
+      <th>Children</th>
+      <th>Infants</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of arr" style="text-align: center;">
+      <td>{{ f.fullName }}</td>
+      <td>{{ f.from }}</td>
+      <td>{{ f.to }}</td>
+      <td>{{ f.type }}</td>
+      <td>{{ f.departure.getDate() + '/' + (f.departure.getMonth() + 1) + '/' + (f.departure.getFullYear()+543) }}</td>
+      <td>{{ f.arrival.getDate() + '/' + (f.arrival.getMonth() + 1) + '/' + (f.arrival.getFullYear()+543) }}</td>
+      <td>{{ f.adults }}</td>
+      <td>{{ f.children }}</td>
+      <td>{{ f.infants }}</td>
+    </tr>
+  </tbody>
+</table>
